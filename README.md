@@ -1,3 +1,7 @@
+<!-- README.md -->
+<!-- Copyright (c) 2024 Ishan Pranav -->
+<!-- Licensed under the MIT license. -->
+
 # Spotted
 
 ## Overview
@@ -54,6 +58,8 @@ into account when determining the radius in which others can see this message.
   posted: // timestamp
 }
 ```
+
+### Schemata
 
 See [user.mjs](src/user.mjs) for the first-draft user schema and
 [message.mjs](src/message.mjs) for the first-draft message schema.
@@ -113,14 +119,11 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 10 points total out of 8 required points (___TODO__: addtional points will __not__ count for extra credit)
 
+## Initial prototype
 
-## [Link to Initial Main Project File](app.mjs) 
+Please see [app.mjs](src/app.mjs), [location.js](src/public/scripts), and the
+[views](src/views/) folder.
 
-(__TODO__: create a skeleton Express application with a package.json, app.mjs, views folder, etc. ... and link to your initial app.mjs)
+## References
 
-## Annotations / References Used
-
-(__TODO__: list any tutorials/references/etc. that you've based your code off of)
-
-1. [passport.js authentication docs](http://passportjs.org/docs) - (add link to source code that was based on this)
-2. [tutorial on vue.js](https://vuejs.org/v2/guide/) - (add link to source code that was based on this)
+1. 
