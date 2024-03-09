@@ -1,57 +1,62 @@
-The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
-
-(__TODO__: your project name)
-
-# Shoppy Shoperson 
+# Spotted
 
 ## Overview
 
-(__TODO__: a brief one or two paragraph, high-level description of your project)
+Take **Spotted** everywhere you go - whether you're traveling or just hanging
+around on campus. You'll be able to leave short notes so that anyone who visits
+the same spot can read them.
 
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
+Were you the first person to climb Mount Everest? How will anyone believe you if
+you don't leave a note there for the next person!? Or maybe you went to an
+absolutely _terrible_ food truck... leave a note behind to save anyone else who
+stumbles across it!
 
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
+Graffiti-up the world with your anonymous notes or sign in to react to other
+notes. The ones with the best reactions stick around for others to see, while
+the rest gradually vanish.
 
+## Data model
 
-## Data Model
+The application only stores _registered users_ and _messages_. Each registered
+user may be associated with many messages.
 
-(__TODO__: a description of your application's data and their relationships to each other) 
+### Sample user
 
-The application will store Users, Lists and Items
-
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
-
-(__TODO__: sample documents)
-
-An Example User:
-
-```javascript
-{
-  username: "shannonshopper",
-  hash: // a password hash,
-  lists: // an array of references to List documents
-}
-```
-
-An Example List with Embedded Items:
+Users who want to interact with messages will sign in using a third-party
+provider like Google or Microsoft. The users collection just associates a user
+identifier with the third-party account information.
 
 ```javascript
 {
-  user: // a reference to a User object
-  name: "Breakfast foods",
-  items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
-  ],
-  createdAt: // timestamp
+  id: // user id
+  account: // third-party sign-in account id
+  imageUrl: // third-party sign-in user profile picture
 }
 ```
 
+### Sample message
 
-## [Link to Commented First Draft Schema](db.mjs) 
+Text messages ("notes") and their locations of origin ("spots") are stored in
+the database.
 
-(__TODO__: create a first draft of your Schemas in db.mjs and link to it)
+In this example, the position is only accurate to 55 meters, which will be taken
+into account when determining the radius in which others can see this message.
+
+```javascript
+{
+  user: // a reference to a User object or a null (anonymous) user
+  content: "Mark was here!",
+  coordinates: {
+    latitude: 40.738584,
+    longitude: -74.003851,
+    accuracy: 55
+  },
+  posted: // timestamp
+}
+```
+
+See [user.mjs](src/user.mjs) for the first-draft user schema and
+[message.mjs](src/message.mjs) for the first-draft message schema.
 
 ## Wireframes
 
@@ -75,20 +80,25 @@ An Example List with Embedded Items:
 
 Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia/commons/2/20/Sitemap_google.jpg), but you can create one without the screenshots, drop shadows, etc. ... just names of pages and where they flow to.
 
-## User Stories or Use Cases
+## Details
 
-(__TODO__: write out how your application will be used through [user stories](http://en.wikipedia.org/wiki/User_story#Format) and / or [use cases](https://en.wikipedia.org/wiki/Use_case))
+### Roles
 
-1. as non-registered user, I can register a new account with the site
-2. as a user, I can log in to the site
-3. as a user, I can create a new grocery list
-4. as a user, I can view all of the grocery lists I've created in a single list
-5. as a user, I can add items to an existing grocery list
-6. as a user, I can cross off items in an existing grocery list
+- **User:** a generic role for any agent able to access the site.
+- **Registered user**: a user with a registered account.
+- **Non-registered user**: a user that has not signed into a registered account.
 
-## Research Topics
+### User stories
 
-(__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
+1. As a non-registered user, I can register for a new account with the site
+   using my Google account.
+2. As a registered user, I can log into the site.
+3. As a user, I can write a note anonymously.
+4. As a registered user, I can write a note and claim authorship.
+5. As a user, I can read notes that were written near my current location.
+6. As a registered user, I can react to notes.
+
+## Research topics
 
 * (5 points) Integrate user authentication
     * I'm going to be using passport for user authentication
@@ -114,4 +124,3 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 1. [passport.js authentication docs](http://passportjs.org/docs) - (add link to source code that was based on this)
 2. [tutorial on vue.js](https://vuejs.org/v2/guide/) - (add link to source code that was based on this)
-

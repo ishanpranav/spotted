@@ -1,0 +1,25 @@
+{
+  "name": "final-project-ishanpranav",
+  "version": "1.0.0",
+  "description": "Take Spotted everywhere you go - whether you're traveling or just hanging\r around on campus. You'll be able to leave short notes so that anyone who visits\r the same spot can read them.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ishanpranav/spotted.git"
+  },
+  "author": "Ishan Pranav",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ishanpranav/spotted/issues"
+  },
+  "homepage": "https://github.com/ishanpranav/spotted#readme",
+  "dependencies": {
+    "express": "^4.18.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0"
+  }
+}
