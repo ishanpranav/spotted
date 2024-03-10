@@ -3,9 +3,11 @@
 // Licensed under the MIT License.
 
 navigator.geolocation.getCurrentPosition(
-    (position) => {
-        console.log(position.coords.latitude);
-        console.log(position.coords.longitude);
+    async (position) => {
+        window.location.href = 
+            '/?latitude=' + position.coords.latitude + 
+            '&longitude=' + position.coords.longitude + 
+            '&accuracy=' + position.coords.accuracy;
     },
     err => { throw err },
     { enableHighAccuracy: true });

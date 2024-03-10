@@ -3,25 +3,40 @@
 // Licensed under the MIT License.
 
 import express from 'express';
-import http from 'http';
 import https from 'https';
 import { config } from 'dotenv';
 import { readFileSync } from 'fs';
-import { dirname, resolve } from 'path'
+import { basename, dirname, resolve } from 'path'
 import { fileURLToPath } from 'url';
 
 const rootDirectory = dirname(fileURLToPath(import.meta.url));
+const secretDirectory = resolve(dirname(rootDirectory), 'etc', 'secrets');
 
 config();
 
 const app = express()
     .use(express.static(resolve(rootDirectory, 'public')))
+    .use(express.urlencoded({ extended: false }))
+    .use((request, response, next) => {
+        console.log(request.method, request.path, request.query);
+        next();
+    })
     .set('view engine', 'hbs')
     .get('/', (request, response) => {
-        response.render('index');
+        if (!request.query.latitude || !request.query.longitude) {
+            response.render('index');
+
+            return;
+        }
+
+        response.render('main', {
+            latitude: request.query.latitude,
+            longitude: request.query.longitude,
+            accuracy: request.query.accuracy
+        });
     });
-const publicKeyPath = resolve(rootDirectory, 'public-key.pem');
-const privateKeyPath = resolve(rootDirectory, 'private-key.pem');
+const publicKeyPath = resolve(secretDirectory, 'public-key.pem');
+const privateKeyPath = resolve(secretDirectory, 'private-key.pem');
 const httpsPort = process.env.SPOTTED_HTTPS_PORT || 3001;
 const hostname = process.env.SPOTTED_HOSTNAME;
 
@@ -33,11 +48,3 @@ https
     .listen(httpsPort, hostname);
 
 console.log(`Started serving on https://${hostname}:${httpsPort}/`);
-
-const httpPort = process.env.SPOTTED_HTTP_PORT || 3000;
-
-http
-    .createServer(app)
-    .listen(httpPort, hostname);
-
-console.log(`Started serving on http://${hostname}:${httpPort}/`);
