@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 config();
 
 const rootDirectory = dirname(fileURLToPath(import.meta.url));
+const port = process.env.PORT;
 
 express()
     .use(express.static(resolve(rootDirectory, 'public')))
@@ -32,6 +33,6 @@ express()
             accuracy: request.query.accuracy
         });
     })
-    .listen(process.env.PORT || 3000, () => {
+    .listen(port, () => {
         console.log(`Started server on HTTP port ${port}...`);
     });
