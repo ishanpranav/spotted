@@ -36,12 +36,13 @@ const app = express()
     });
 const publicKeyPath = resolve(rootDirectory, 'public-key.pem');
 const privateKeyPath = resolve(rootDirectory, 'private-key.pem');
+const port = process.env.PORT || 3001;
 
 https
     .createServer({
         cert: readFileSync(publicKeyPath, 'utf-8'),
         key: readFileSync(privateKeyPath, 'utf-8')
     }, app)
-    .listen(process.env.PORT || 3001, () => {
-        console.log(`Started serving on https://{hostname}:${httpsPort}`);
+    .listen(port, () => {
+        console.log(`Started serving on https://{hostname}:${port}`);
     });
