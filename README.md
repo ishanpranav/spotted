@@ -66,25 +66,17 @@ See [user.mjs](src/user.mjs) for the first-draft user schema and
 
 ## Wireframes
 
-(__TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc.)
+There are just two pages - the main chat homepage (`/`) and the sign-in page
+(`/sign-in`).
 
-/list/create - page for creating a new shopping list
-
-![list create](documentation/list-create.png)
-
-/list - page for showing all shopping lists
-
-![list](documentation/list.png)
-
-/list/slug - page for showing specific shopping list
-
-![list](documentation/list-slug.png)
+![Wireframe](docs/wireframe.png "Wireframe")
 
 ## Site map
 
-(__TODO__: draw out a site map that shows how pages are related to each other)
+The page heirarchy is as simple as possible: just the main single-page
+application plus a sign-in area.
 
-Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia/commons/2/20/Sitemap_google.jpg), but you can create one without the screenshots, drop shadows, etc. ... just names of pages and where they flow to.
+![Sitemap](docs/sitemap.png "Sitemap")
 
 ## Details
 
@@ -106,18 +98,15 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 ## Research topics
 
-* (5 points) Integrate user authentication
-    * I'm going to be using passport for user authentication
-    * And account has been made for testing; I'll email you the password
-    * see <code>cs.nyu.edu/~jversoza/ait-final/register</code> for register page
-    * see <code>cs.nyu.edu/~jversoza/ait-final/login</code> for login page
-* (4 points) Perform client side form validation using a JavaScript library
-    * see <code>cs.nyu.edu/~jversoza/ait-final/my-form</code>
-    * if you put in a number that's greater than 5, an error message will appear in the dom
-* (5 points) vue.js
-    * used vue.js as the frontend framework; it's a challenging library to learn, so I've assigned it 5 points
-
-10 points total out of 8 required points (___TODO__: addtional points will __not__ count for extra credit)
+- (2 points) **Use a CSS framework.** I will use the Bootstrap CSS framework and
+  customize the themes using Sass variables.
+- (3 points) **Use build tools.** I will use Webpack to compile Sass.
+- (2 points) **Integrate ESLint into your workflow.** I will integrate ESLint
+  into the workflow using Webpack to automate linting.
+- (2 points) **Use a CSS preprocessor.** In order to customize Bootstrap, I will
+  need a Sass preprocessor built into the Webpack workflow.
+- (remaining 1 point) **Server-side JavaScript library.** I will use Passport
+  for user authentication.
 
 ## Initial prototype
 
@@ -126,4 +115,6 @@ Please see [app.mjs](src/app.mjs), [location.js](src/public/scripts), and the
 
 ## References
 
-1. 
+1. [Geolocation API - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API) -
+    [location.js](src/location.js)
+2. [Enabling HTTPS on Express.js - Stack Overflow](https://stackoverflow.com/questions/11744975/enabling-https-on-express-js)
