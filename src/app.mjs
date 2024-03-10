@@ -37,6 +37,6 @@ export const app = express()
 
 if (process.env.SPOTTED_HTTP) {
     app.listen(process.env.PORT, () => {
-        console.log(`Started server on HTTP port ${port}...`);
+        console.log(`Started server on HTTP port ${process.env.PORT}...`);
     });
 }
