@@ -3,17 +3,17 @@
 // Licensed under the MIT License.
 
 import express from 'express';
-import https from 'https';
 import { config } from 'dotenv';
-import { readFileSync } from 'fs';
 import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'url';
 
-const rootDirectory = dirname(fileURLToPath(import.meta.url));
+/** Specifies the source root directory. */
+export const rootDirectory = dirname(fileURLToPath(import.meta.url));
 
 config();
 
-const app = express()
+/** Specifies a configurable Express application. */
+export const app = express()
     .use(express.static(resolve(rootDirectory, 'public')))
     .use(express.urlencoded({ extended: false }))
     .use((request, response, next) => {
@@ -34,15 +34,9 @@ const app = express()
             accuracy: request.query.accuracy
         });
     });
-const publicKeyPath = resolve(rootDirectory, 'public-key.pem');
-const privateKeyPath = resolve(rootDirectory, 'private-key.pem');
-const port = process.env.PORT || 3001;
 
-https
-    .createServer({
-        cert: readFileSync(publicKeyPath, 'utf-8'),
-        key: readFileSync(privateKeyPath, 'utf-8')
-    }, app)
-    .listen(port, () => {
-        console.log(`Started serving on https://{hostname}:${port}`);
+if (process.env.SPOTTED_HTTP) {
+    app.listen(process.env.PORT, () => {
+        console.log(`Started server on HTTP port ${port}...`);
     });
+}
