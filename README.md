@@ -99,14 +99,25 @@ application plus a sign-in area.
 ## Research topics
 
 - (2 points) **Use a CSS framework.** I will use the Bootstrap CSS framework and
-  customize the themes using Sass variables.
-- (3 points) **Use build tools.** I will use Webpack to compile Sass.
+  customize the themes using Sass variables. Bootstrap is a frontend CSS and
+  JavaScript framework that will ease the burden of creating custom styles. It
+  ensures responsive, friendly rendering on desktop and mobile devices.
+- (3 points) **Use build tools.** I will use Webpack to compile Sass. Webpack
+  compiles (or rather tanspiles) code from higher-level web languages to
+  lower-level ones. Since Bootstrap is written in Sass, customizing the theme
+  variables will require Webpack's Sass support.
 - (2 points) **Integrate ESLint into your workflow.** I will integrate ESLint
-  into the workflow using Webpack to automate linting.
+  into the workflow using Webpack to automate linting. Since I am already using
+  Webpack, I can add ESLint as a build step. This enforces code style throughout
+  the development process.
 - (2 points) **Use a CSS preprocessor.** In order to customize Bootstrap, I will
-  need a Sass preprocessor built into the Webpack workflow.
+  need a Sass preprocessor. As mentioned above, I'll use Webpack. Thus, Sass,
+  ESLint, and Webpack will be one process.
 - (remaining 1 point) **Server-side JavaScript library.** I will use Passport
-  for user authentication.
+  for user authentication. The application requires authentication, and I'd
+  rather use a third-party service than create an email-based handwritten
+  version. At minimum, I plan to support Google accounts but may expand to
+  Microsoft, GitHub, and other services.
 
 ## Initial prototype
 
