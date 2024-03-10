@@ -6,11 +6,10 @@ import express from 'express';
 import https from 'https';
 import { config } from 'dotenv';
 import { readFileSync } from 'fs';
-import { basename, dirname, resolve } from 'path'
+import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'url';
 
 const rootDirectory = dirname(fileURLToPath(import.meta.url));
-const secretDirectory = resolve(dirname(rootDirectory), 'etc', 'secrets');
 
 config();
 
@@ -35,8 +34,8 @@ const app = express()
             accuracy: request.query.accuracy
         });
     });
-const publicKeyPath = resolve(secretDirectory, 'public-key.pem');
-const privateKeyPath = resolve(secretDirectory, 'private-key.pem');
+const publicKeyPath = resolve(rootDirectory, 'public-key.pem');
+const privateKeyPath = resolve(rootDirectory, 'private-key.pem');
 const httpsPort = process.env.SPOTTED_HTTPS_PORT || 3001;
 const hostname = process.env.SPOTTED_HOSTNAME;
 
