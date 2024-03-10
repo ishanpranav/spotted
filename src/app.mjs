@@ -7,13 +7,11 @@ import { config } from 'dotenv';
 import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'url';
 
-/** Specifies the source root directory. */
-export const rootDirectory = dirname(fileURLToPath(import.meta.url));
-
 config();
 
-/** Specifies a configurable Express application. */
-export const app = express()
+const rootDirectory = dirname(fileURLToPath(import.meta.url));
+
+express()
     .use(express.static(resolve(rootDirectory, 'public')))
     .use(express.urlencoded({ extended: false }))
     .use((request, response, next) => {
@@ -33,10 +31,7 @@ export const app = express()
             longitude: request.query.longitude,
             accuracy: request.query.accuracy
         });
+    })
+    .listen(process.env.PORT || 3000, () => {
+        console.log(`Started server on HTTP port ${port}...`);
     });
-
-if (process.env.SPOTTED_HTTP) {
-    app.listen(process.env.PORT, () => {
-        console.log(`Started server on HTTP port ${process.env.PORT}...`);
-    });
-}

@@ -128,4 +128,3 @@ Please see [app.mjs](src/app.mjs), [location.js](src/public/scripts), and the
 
 1. [Geolocation API - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API) -
     [location.js](src/location.js)
-2. [Enabling HTTPS on Express.js - Stack Overflow](https://stackoverflow.com/questions/11744975/enabling-https-on-express-js)
