@@ -18,7 +18,7 @@ express()
     .use((request, response, next) => {
         console.log(request.method, request.path, request.query);
         next();
-    })
+    })    
     .set('view engine', 'hbs')
     .get('/', (request, response) => {
         if (!request.query.latitude || !request.query.longitude) {
