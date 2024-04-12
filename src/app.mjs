@@ -36,9 +36,6 @@ app
 
         await message.save();
 
-        console.log('saved to db and firing posted with data 1');
-        // socketIO.emit('posted', { data: 1 });
-
         response.redirect('/');
     })
     .get('/login', async (request, response) => {
@@ -46,11 +43,13 @@ app
     });
 
 server.listen(process.env.PORT || 3000);
-
 socketIO.on('connection', socket => {
-    console.log(socket);
     console.log(socket.id, 'connected');
-    socket.emit('posted', {data:1});
+
+    socket.on('post', data => {
+        console.log('posted-ing');
+        socket.broadcast.emit('posted', data);
+    });
 });
 
 async function getMessagesAsync() {
