@@ -8,9 +8,6 @@ import express from 'express';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
-const app = express();
-const fileName = fileURLToPath(import.meta.url);
-const directoryName = join(dirname(fileName), 'dist');
-
-app.use(express.static(directoryName));
-app.listen(process.env.PORT || 3000);
+express()
+    .use(express.static(join(dirname(fileURLToPath(import.meta.url)), 'dist')))
+    .listen(process.env.PORT || 3000);
