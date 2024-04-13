@@ -64,20 +64,6 @@ into account when determining the radius in which others can see this message.
 See [user.mjs](src/user.mjs) for the first-draft user schema and
 [message.mjs](src/message.mjs) for the first-draft message schema.
 
-## Wireframes
-
-There are just two pages - the main chat homepage (`/`) and the sign-in page
-(`/sign-in`).
-
-![Wireframe](docs/wireframe.png "Wireframe")
-
-## Site map
-
-The page heirarchy is as simple as possible: just the main single-page
-application plus a sign-in area.
-
-![Sitemap](docs/sitemap.png "Sitemap")
-
 ## Details
 
 ### Roles
@@ -98,21 +84,17 @@ application plus a sign-in area.
 
 ## Research topics
 
-### Minimum required research topics 
-
-- (3 points) **Use build tools.** I will use Webpack to compile JSX for React.
-  Webpack compiles (or rather tanspiles) code from higher-level web languages to
-  lower-level ones. Since React uses JSX, a JSX-to-ECMAScript compiler is
-  required.
+- (2 points) **Use a CSS framework.** I will use Bootstrap as the UI framework
+  for the project. I will customize the styles using Sass.
+- (3 points) **Use build tools.** I will use Webpack to compile Sass to CSS.
+  This is required in order to customize Bootstrap.
 - (2 points) **Integrate ESLint into your workflow.** I will integrate ESLint
   into the workflow using Webpack to automate linting. Since I am already using
   Webpack, I can add ESLint as a build step. This enforces code style throughout
   the development process.
-
-### Additional reseearch topics
-
-- **Server-side JavaScript library.** I will use Passport for user
-  authentication.
+- (3 points) **Server-side JavaScript library: integrate user authentication.**
+  I will use Passport for user authentication. Registered users should be able
+  to sign in with Google.
 
 ## Initial prototype
 
