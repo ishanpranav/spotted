@@ -27,7 +27,9 @@ app
         extended: false
     }))
     .get('/', async (request, response) => {
-        response.render('post');
+        response.render('post', {
+            messages: await Message.find()
+        });
     })
     .post('/', async (request, response) => {
         const message = new Message();
@@ -37,25 +39,13 @@ app
         await message.save();
 
         response.redirect('/');
-    })
-    .get('/login', async (request, response) => {
-        await getMessagesAsync();
     });
 
 server.listen(process.env.PORT || 3000);
 socketIO.on('connection', socket => {
     console.log(socket.id, 'connected');
 
-    socket.on('post', data => {
-        console.log('posted-ing');
-        socket.broadcast.emit('posted', data);
+    socket.on('post', message => {
+        socket.broadcast.emit('posted', message);
     });
 });
-
-async function getMessagesAsync() {
-    const data = await Message.find();
-
-    console.log(data);
-
-    return data;
-}

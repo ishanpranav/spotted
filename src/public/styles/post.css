@@ -1,0 +1,8 @@
+/* post.css */
+/* Copyright (c) 2024 Ishan Pranav */
+/* Licensed under the MIT license. */
+
+.spotted-overflow-container {
+    overflow-y: scroll;
+    height: 400px;
+}

@@ -1,12 +1,26 @@
+{{!-- post.hbs --}}
+{{!-- Copyright (c) 2024 Ishan Pranav --}}
+{{!-- Licensed under the MIT license. --}}
+
 <h1>Post</h1>
 <form method="post">
-    <label for="messageInput">Message: </label>
-    <input
-        id="messageInput" 
+    <div class="spotted-overflow-container">
+        <table id="messagesTable">
+            <tr>
+                <th>Messages</th>
+            </tr>
+            {{#each messages}}
+            <tr>
+                <td>{{content}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+    <label for="contentInput">Message: </label>
+    <input 
+        id="contentInput" 
         name="message" 
-        type="text" 
+        type="text"
         placeholder="Enter your message..." />
-    <table id="messagesTable">
-    </table>
     <input id="postButton" type="submit" value="Post" />
 </form>
