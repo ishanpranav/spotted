@@ -34,7 +34,7 @@ app
     .post('/', async (request, response) => {
         const message = new Message();
 
-        message.content = request.body.message;
+        message.content = request.body.content;
 
         await message.save();
 

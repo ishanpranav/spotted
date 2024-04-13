@@ -2,25 +2,34 @@
 {{!-- Copyright (c) 2024 Ishan Pranav --}}
 {{!-- Licensed under the MIT license. --}}
 
-<h1>Post</h1>
-<form method="post">
-    <div class="spotted-overflow-container">
-        <table id="messagesTable">
+<div class="spotted-overflow-container">
+    <table class="table">
+        <thead>
             <tr>
                 <th>Messages</th>
             </tr>
+        </thead>
+        <tbody id="messagesTable">
             {{#each messages}}
             <tr>
                 <td>{{content}}</td>
             </tr>
             {{/each}}
-        </table>
+        </tbody>
+    </table>
+</div>
+<form method="post">
+    <div class="form-floating">
+        <input id="contentInput"
+               name="content"
+               class="form-control spotted-textarea"
+               placeholder="Enter a message..."
+               aria-label="Enter a message..."
+               aria-describedby="postButton" />
+        <label for="contentInput">Enter a message...</label>
     </div>
-    <label for="contentInput">Message: </label>
-    <input 
-        id="contentInput" 
-        name="message" 
-        type="text"
-        placeholder="Enter your message..." />
-    <input id="postButton" type="submit" value="Post" />
+    <input id="postButton"
+           class="btn btn-light mt-2 w-100"
+           type="submit"
+           value="Post" />
 </form>

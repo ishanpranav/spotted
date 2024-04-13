@@ -39,5 +39,4 @@ function addMessage(content) {
 
     row.appendChild(cell);
     messagesTable.appendChild(row);
-    console.log('appendend')
 }

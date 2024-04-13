@@ -2,7 +2,12 @@
 /* Copyright (c) 2024 Ishan Pranav */
 /* Licensed under the MIT license. */
 
+.spotted-container {
+    grid-template-columns: 1fr 2fr;
+}
+
 .spotted-overflow-container {
     overflow-y: scroll;
-    height: 400px;
+    height: 50vh;
+    width: 100%;
 }
