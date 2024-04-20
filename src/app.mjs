@@ -22,29 +22,30 @@ const publicDirectory = join(dirname(fileURLToPath(import.meta.url)), 'public');
 
 app
     .set('view engine', 'hbs')
+    .use(express.json())
     .use(express.static(publicDirectory))
-    .use(express.urlencoded({
-        extended: false
-    }))
     .get('/', async (request, response) => {
-        response.render('post', {
-            messages: await Message.find()
-        });
+        response.render('post');
     })
-    .post('/', async (request, response) => {
-        const message = new Message();
-
-        message.content = request.body.content;
+    .post('/api/message', async (request, response) => {
+        const message = new Message({
+            content: request.body.content
+        });
 
         await message.save();
 
-        response.redirect('/');
+        response.sendStatus(200);
+    })
+    .get('/api/messages', async (request, response) => {
+        const longitude = request.query.longitude;
+        const latitude = request.query.latitude;
+        const accuracy = request.query.accuracy;
+        
+        response.json(await Message.find());
     });
 
 server.listen(process.env.PORT || 3000);
 socketIO.on('connection', socket => {
-    console.log(socket.id, 'connected');
-
     socket.on('post', message => {
         socket.broadcast.emit('posted', message);
     });

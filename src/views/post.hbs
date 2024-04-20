@@ -9,27 +9,21 @@
                 <th>Messages</th>
             </tr>
         </thead>
-        <tbody id="messagesTable">
-            {{#each messages}}
-            <tr>
-                <td>{{content}}</td>
-            </tr>
-            {{/each}}
-        </tbody>
+        <tbody id="messagesTable"></tbody>
     </table>
 </div>
-<form method="post">
-    <div class="form-floating">
-        <input id="contentInput"
-               name="content"
-               class="form-control spotted-textarea"
-               placeholder="Enter a message..."
-               aria-label="Enter a message..."
-               aria-describedby="postButton" />
-        <label for="contentInput">Enter a message...</label>
-    </div>
-    <input id="postButton"
-           class="btn btn-light mt-2 w-100"
-           type="submit"
-           value="Post" />
-</form>
+<div class="form-floating">
+    <input id="contentInput"
+           name="content"
+           class="form-control spotted-textarea"
+           placeholder="Enter a message..."
+           aria-label="Enter a message..."
+           aria-describedby="postButton" />
+    <label for="contentInput">Enter a message...</label>
+</div>
+<input id="postButton"
+       class="btn btn-light mt-2 w-100"
+       type="submit"
+       value="Post" />
+<script src="/scripts/post.mjs"
+        type="module"></script>

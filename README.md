@@ -104,4 +104,4 @@ Please see [app.mjs](src/app.mjs), [location.js](src/public/scripts), and the
 ## References
 
 1. [Geolocation API - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API) -
-    [location.js](src/location.js)
+    [location.js](src/public/scripts/location.js)
