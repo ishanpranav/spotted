@@ -11,3 +11,7 @@
     height: 50vh;
     width: 100%;
 }
+
+#contentInput {
+    height: 100px;
+}

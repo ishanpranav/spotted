@@ -104,4 +104,8 @@ Please see [app.mjs](src/app.mjs), [location.js](src/public/scripts), and the
 ## References
 
 1. [Geolocation API - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API) -
-    [location.js](src/public/scripts/location.js)
+    [post.mjs](src/public/scripts/post.mjs)
+2. [Bootstrap documentation](https://getbootstrap.com/docs/5.3/) -
+    [layout.hbs](src/views/layout.hbs)
+3. [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula)
+   - [Calculate geometric Euclidean distance](https://gist.github.com/manix/7ce097c73728e07178af74cb4c62a341) - [geometry.mjs](src/geometry.mjs)

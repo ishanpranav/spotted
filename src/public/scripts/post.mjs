@@ -1,4 +1,4 @@
-// socket-client.mjs
+// post.mjs
 // Copyright (c) 2024 Ishan Pranav
 // Licensed under the MIT license.
 
@@ -6,7 +6,7 @@ import { io } from '/socket.io/socket.io.esm.min.js';
 import { SpottedClient } from './spotted-client.mjs';
 
 let socket;
-const spottedClient = new SpottedClient();
+const client = new SpottedClient();
 
 document.addEventListener('DOMContentLoaded', onDOMContentLoaded);
 
@@ -14,7 +14,7 @@ async function onDOMContentLoaded() {
     socket = io();
 
     socket.on('posted', message => {
-        addMessage(message.content);
+        addMessage(message);
     });
 
     const postButton = document.getElementById('postButton');
@@ -22,13 +22,15 @@ async function onDOMContentLoaded() {
     postButton.addEventListener('click', onPostButtonClick);
 
     navigator.geolocation.getCurrentPosition(async position => {
-        const messages = await spottedClient.getMessagesAsync(
+        const messages = await client.getMessagesAsync(
             position.coords, 
             position.coords.accuracy);
 
         for (const message of messages) {
-            addMessage(message.content);
+            addMessage(message);
         }
+
+        console.log(position.coords);
     });
 }
 
@@ -45,21 +47,24 @@ function onPostButtonClick() {
             coordinates: {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
-            }
+            },
+            distance: 0
         };
 
-        if (await spottedClient.addMessageAsync(message)) {
+        if (await client.addMessageAsync(message)) {
             socket.emit('post', message);
-            addMessage(message.content);
+            addMessage(message);
         }
+
+        console.log(position.coords);
     });
 }
 
-function addMessage(content) {
+function addMessage(message) {
     const row = document.createElement('tr');
     const cell = document.createElement('td');
 
-    cell.textContent = content;
+    cell.textContent = message.content + " (" + message.distance + ")";
 
     row.appendChild(cell);
     document.getElementById('messagesTable').appendChild(row);
