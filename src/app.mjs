@@ -28,9 +28,13 @@ app
         response.render('post');
     })
     .post('/api/message', async (request, response) => {
-        const message = new Message({
-            content: request.body.content
-        });
+        request.body.content = request.body.content.trim();
+
+        if (!request.body.content.length) {
+            response.sendStatus(200);
+        }
+
+        const message = new Message(request.body);
 
         await message.save();
 

@@ -3,8 +3,10 @@
 // Licensed under the MIT license.
 
 import { io } from '/socket.io/socket.io.esm.min.js';
+import { SpottedClient } from './spotted-client.mjs';
 
 let socket;
+const spottedClient = new SpottedClient();
 
 document.addEventListener('DOMContentLoaded', onDOMContentLoaded);
 
@@ -20,11 +22,9 @@ async function onDOMContentLoaded() {
     postButton.addEventListener('click', onPostButtonClick);
 
     navigator.geolocation.getCurrentPosition(async position => {
-        const request = `/api/messages?latitude=${position.coords.latitude}` +
-            `&longitude=${position.coords.longitude}` +
-            `&accuracy=${position.coords.accuracy}`;
-        const response = await fetch(request);
-        const messages = await response.json();
+        const messages = await spottedClient.getMessagesAsync(
+            position.coords, 
+            position.coords.accuracy);
 
         for (const message of messages) {
             addMessage(message.content);
@@ -32,22 +32,27 @@ async function onDOMContentLoaded() {
     });
 }
 
-async function onPostButtonClick() {
-    const message = {
-        content: document.getElementById('contentInput').value
-    };
-    const response = await fetch('/api/message', {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(message)
-    });
+function onPostButtonClick() {
+    const content = document.getElementById('contentInput').value;
 
-    if (response.ok) {
-        socket.emit('post', message);
-        addMessage(message.content);
+    if (!content.trim().length) {
+        return;
     }
+
+    navigator.geolocation.getCurrentPosition(async position => {
+        const message = {
+            content: content,
+            coordinates: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            }
+        };
+
+        if (await spottedClient.addMessageAsync(message)) {
+            socket.emit('post', message);
+            addMessage(message.content);
+        }
+    });
 }
 
 function addMessage(content) {

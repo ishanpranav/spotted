@@ -13,8 +13,7 @@ export const Message = model('Message', new Schema({
     content: String,
     coordinates: {
         latitude: Number,
-        longitude: Number,
-        accuracy: Number
+        longitude: Number
     },
     posted: Date
 }));
