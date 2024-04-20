@@ -26,3 +26,7 @@ dist-ssr
 # Environment variables
 *.env
 .env
+
+# Source maps
+*.map
+src/public/styles/custom-bootstrap.css

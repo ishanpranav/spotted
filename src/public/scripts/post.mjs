@@ -10,6 +10,22 @@ const client = new SpottedClient();
 
 document.addEventListener('DOMContentLoaded', onDOMContentLoaded);
 
+function getMessageTab() {
+    return document.getElementById('messageTab');
+}
+
+function getImageTab() {
+    return document.getElementById('imageTab');
+}
+
+function getMessageTabPage() {
+    return document.getElementById('messageTabPage');
+}
+
+function getImageTabPage() {
+    return document.getElementById('imageTabPage');
+}
+
 async function onDOMContentLoaded() {
     socket = io();
 
@@ -17,13 +33,15 @@ async function onDOMContentLoaded() {
         addMessage(message);
     });
 
-    const postButton = document.getElementById('postButton');
-
-    postButton.addEventListener('click', onPostButtonClick);
+    document
+        .getElementById('postButton')
+        .addEventListener('click', onPostButtonClick);
+    getMessageTab().addEventListener('click', onMessageTabClick);
+    getImageTab().addEventListener('click', onImageTabClick);
 
     navigator.geolocation.getCurrentPosition(async position => {
         const messages = await client.getMessagesAsync(
-            position.coords, 
+            position.coords,
             position.coords.accuracy);
 
         for (const message of messages) {
@@ -58,6 +76,20 @@ function onPostButtonClick() {
 
         console.log(position.coords);
     });
+}
+
+function onMessageTabClick() {
+    getMessageTab().classList.add('active');
+    getImageTab().classList.remove('active');
+    getMessageTabPage().classList.remove('d-none');
+    getImageTabPage().classList.add('d-none');
+}
+
+function onImageTabClick() {
+    getMessageTab().classList.remove('active');
+    getImageTab().classList.add('active');
+    getMessageTabPage().classList.add('d-none');
+    getImageTabPage().classList.remove('d-none');
 }
 
 function addMessage(message) {

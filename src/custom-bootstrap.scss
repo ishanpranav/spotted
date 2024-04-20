@@ -1,0 +1,27 @@
+/* custom-bootstrap.scss */
+
+@import "../node_modules/bootstrap/scss/functions";
+
+$color-mode-type: data;
+
+@import "../node_modules/bootstrap/scss/variables";
+
+$link-color: $indigo-700;
+$link-hover-color: $indigo-600;
+
+@import "../node_modules/bootstrap/scss/maps";
+
+$theme-colors: (
+  "primary": $indigo-700
+);
+
+@import "../node_modules/bootstrap/scss/mixins";
+
+@include color-mode(dark) {
+    .element {
+        color: var(--bs-primary-text-emphasis);
+        background-color: var(--bs-primary-bg-subtle);
+    }
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";

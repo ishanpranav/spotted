@@ -12,17 +12,39 @@
         <tbody id="messagesTable"></tbody>
     </table>
 </div>
-<div class="form-floating">
-    <textarea id="contentInput"
-           name="content"
-           class="form-control"
-           placeholder="Enter a message..."
-           aria-label="Enter a message..."
-           aria-describedby="postButton"></textarea>
-    <label for="contentInput">Enter a message...</label>
+<ul class="nav nav-tabs my-2">
+    <li class="nav-item">
+        <a id="messageTab"
+           class="nav-link active"
+           aria-current="page"
+           href="#">Message</a>
+    </li>
+    <li class="nav-item">
+        <a id="imageTab"
+           class="nav-link"
+           href="#">Image</a>
+    </li>
+</ul>
+<div class="my-2">
+    <div id="messageTabPage"
+         class="form-floating">
+        <textarea id="contentInput"
+                  name="content"
+                  class="form-control"
+                  placeholder="Enter a message..."
+                  aria-label="Enter a message..."
+                  aria-describedby="postButton"></textarea>
+        <label for="contentInput">Enter a message...</label>
+    </div>
+    <div id="imageTabPage"
+         class="d-none">
+        <input class="form-control"
+               type="file"
+               accept="image/*" />
+    </div>
 </div>
 <input id="postButton"
-       class="btn btn-light mt-2 w-100"
+       class="btn btn-primary w-100"
        type="submit"
        value="Post" />
 <script src="/scripts/post.mjs"

@@ -41,6 +41,8 @@ export class MessageRepository {
                 coordinates, 
                 message.coordinates);
 
+            console.log(distance);
+
             if (distance > theta) {
                 continue;
             }

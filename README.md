@@ -52,8 +52,7 @@ into account when determining the radius in which others can see this message.
   content: "Mark was here!",
   coordinates: {
     latitude: 40.738584,
-    longitude: -74.003851,
-    accuracy: 55
+    longitude: -74.003851
   },
   posted: // timestamp
 }

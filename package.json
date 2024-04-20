@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "lint": "eslint . --ext js --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint . --ext js --report-unused-disable-directives --max-warnings 0",
+    "preview": "cd src && start sass --watch custom-bootstrap.scss public/styles/custom-bootstrap.css && start nodemon app.mjs"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
