@@ -49,6 +49,7 @@ export class MessageRepository {
 
             results.push({
                 content: message.content,
+                type: message.type,
                 distance: distance
             });
         }

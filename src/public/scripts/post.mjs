@@ -26,6 +26,14 @@ function getImageTabPage() {
     return document.getElementById('imageTabPage');
 }
 
+function getImageInput() {
+    return document.getElementById('imageInput');
+}
+
+function getPictureBox() {
+    return document.getElementById('pictureBox');
+}
+
 async function onDOMContentLoaded() {
     socket = io();
 
@@ -38,6 +46,7 @@ async function onDOMContentLoaded() {
         .addEventListener('click', onPostButtonClick);
     getMessageTab().addEventListener('click', onMessageTabClick);
     getImageTab().addEventListener('click', onImageTabClick);
+    getImageInput().addEventListener('input', onImageInputInput);
 
     navigator.geolocation.getCurrentPosition(async position => {
         const messages = await client.getMessagesAsync(
@@ -53,20 +62,20 @@ async function onDOMContentLoaded() {
 }
 
 function onPostButtonClick() {
-    const content = document.getElementById('contentInput').value;
+    const message = {};
 
-    if (!content.trim().length) {
-        return;
+    if (getImageTab().classList.contains('active')) {
+        postImage(message);
+    } else {
+        postMessage(message);
     }
+}
 
+function confirmPost(message) {
     navigator.geolocation.getCurrentPosition(async position => {
-        const message = {
-            content: content,
-            coordinates: {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-            },
-            distance: 0
+        message.coordinates = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
         };
 
         if (await client.addMessageAsync(message)) {
@@ -76,6 +85,34 @@ function onPostButtonClick() {
 
         console.log(position.coords);
     });
+}
+
+function postMessage(message) {
+    message.content = document.getElementById('contentInput').value;
+
+    if (!message.content.trim().length) {
+        return;
+    }
+
+    confirmPost(message);
+}
+
+function postImage(message) {
+    const file = getImageInput().files[0];
+
+    if (!file) {
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+        message.content = reader.result;
+        message.type = 'image';
+
+        confirmPost(message);
+    });
+    reader.readAsDataURL(file);
 }
 
 function onMessageTabClick() {
@@ -92,11 +129,41 @@ function onImageTabClick() {
     getImageTabPage().classList.remove('d-none');
 }
 
+function onImageInputInput(e) {
+    const file = e.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+        getPictureBox().src = reader.result;
+    });
+    reader.readAsDataURL(file);
+}
+
 function addMessage(message) {
     const row = document.createElement('tr');
     const cell = document.createElement('td');
 
-    cell.textContent = message.content + " (" + message.distance + ")";
+    console.log(message.type)
+    switch (message.type) {
+        case 'image':
+            const image = document.createElement('img');
+
+            image.src = message.content;
+            image.width = 96;
+            image.classList.add('img-thumbnail');
+
+            cell.appendChild(image);
+            break;
+
+        default:
+            cell.textContent = message.content + " (" + message.distance + "m)";
+            break;
+    }
 
     row.appendChild(cell);
     document.getElementById('messagesTable').appendChild(row);

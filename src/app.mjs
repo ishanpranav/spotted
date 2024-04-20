@@ -22,7 +22,9 @@ const repository = new MessageRepository();
 
 app
     .set('view engine', 'hbs')
-    .use(express.json())
+    .use(express.json({
+        limit: '32mb'
+    }))
     .use(express.static(publicDirectory))
     .get('/', async (request, response) => {
         response.render('post');
@@ -38,7 +40,7 @@ app
             longitude: request.query.longitude
         };
         const messages = await repository.getAsync(
-            coordinates, 
+            coordinates,
             request.query.accuracy);
 
         response.json(messages);

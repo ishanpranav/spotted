@@ -108,3 +108,5 @@ Please see [app.mjs](src/app.mjs), [location.js](src/public/scripts), and the
     [layout.hbs](src/views/layout.hbs)
 3. [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula)
    - [Calculate geometric Euclidean distance](https://gist.github.com/manix/7ce097c73728e07178af74cb4c62a341) - [geometry.mjs](src/geometry.mjs)
+4. [FileReader API - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL) -
+    [post.mjs](src/public/scripts/post.mjs)
