@@ -52,6 +52,11 @@ app
     .use(express.json({
         limit: '32mb'
     }))
+    .use(session({
+        secret: process.env.SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false
+    }))
     .use(express.static(publicDirectory))
     .use(passport.authenticate('session'))
     .get('/', async (_, response) => {
