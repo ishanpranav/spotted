@@ -5,8 +5,11 @@
 import './config.mjs'; // first
 
 import express from 'express';
+import session from 'express-session';
+import passport from 'passport';
 import { createServer } from 'http';
 import { connect } from 'mongoose';
+import { Strategy } from 'passport-google-oauth20';
 import { dirname, join } from 'path';
 import { Server } from 'socket.io';
 import { fileURLToPath } from 'url';
@@ -20,13 +23,38 @@ const socketIO = new Server(server);
 const publicDirectory = join(dirname(fileURLToPath(import.meta.url)), 'public');
 const repository = new MessageRepository();
 
+passport.use(new Strategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL
+}, (acessToken, refreshToken, profile, done) => {
+    console.log("Create user called ", profile);
+
+    done(null, profile);
+}));
+
+passport.serializeUser((user, callback) => {
+    process.nextTick(() => {
+        callback(null, {
+            id: user.id,
+            username: user.username,
+            name: user.name
+        });
+    });
+});
+
+passport.deserializeUser((user, callback) => {
+    process.nextTick(() => callback(null, user));
+});
+
 app
     .set('view engine', 'hbs')
     .use(express.json({
         limit: '32mb'
     }))
     .use(express.static(publicDirectory))
-    .get('/', async (request, response) => {
+    .use(passport.authenticate('session'))
+    .get('/', async (_, response) => {
         response.render('post');
     })
     .post('/api/message', async (request, response) => {
@@ -44,7 +72,14 @@ app
             request.query.accuracy);
 
         response.json(messages);
-    });
+    })
+    .get('/auth/google', passport.authenticate('google', {
+        scope: ['profile', 'email']
+    }))
+    .get('/auth/google/callback', passport.authenticate('google', {
+        failureRedirect: '/login',
+        successRedirect: '/'
+    }));
 
 server.listen(process.env.PORT || 3000);
 socketIO.on('connection', socket => {
