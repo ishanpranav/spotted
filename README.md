@@ -83,10 +83,9 @@ See [user.mjs](src/user.mjs) for the first-draft user schema and
 
 ## Research topics
 
-- (2 points) **Use a CSS framework.** I will use Bootstrap as the UI framework
-  for the project. I will customize the styles using Sass.
-- (3 points) **Use build tools.** I will use Webpack to compile Sass to CSS.
-  This is required in order to customize Bootstrap.
+- (2 points) **Use a user-interface framework.** I will use Bootstrap as the UI
+  framework for the project. I will customize the color scheme.
+- (2 points) **Use a CSS preprocessor.** I will use Sass to compile SCSS to CSS.
 - (2 points) **Integrate ESLint into your workflow.** I will integrate ESLint
   into the workflow using Webpack to automate linting. Since I am already using
   Webpack, I can add ESLint as a build step. This enforces code style throughout
@@ -94,6 +93,8 @@ See [user.mjs](src/user.mjs) for the first-draft user schema and
 - (3 points) **Server-side JavaScript library: integrate user authentication.**
   I will use Passport for user authentication. Registered users should be able
   to sign in with Google.
+- (3 points) **Configuration management.** I will use _nconf_ to manage secrets
+  and the database connection string.
 
 ## Initial prototype
 
