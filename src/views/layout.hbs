@@ -52,7 +52,6 @@
                            href="#">Analytics</a></li>
                 </ul>
             </div>
-
             <div class="d-flex align-items-center">
                 <form class="w-100 me-3"
                       role="search">
@@ -61,7 +60,7 @@
                            placeholder="Search..."
                            aria-label="Search">
                 </form>
-
+                {{#if user}}
                 <div class="flex-shrink-0 dropdown">
                     <a href="#"
                        class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
@@ -83,10 +82,19 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item"
-                               href="#">Sign out</a></li>
+                        <li>
+                            <a class="dropdown-item"
+                               href="/auth/sign-out">
+                                Sign out
+                            </a>
+                        </li>
                     </ul>
                 </div>
+                {{else}}
+                <div class="flex-shrink-0">
+                    <a class="nav-link" href="/auth/google">Sign in</a>
+                </div>
+                {{/if}}
             </div>
         </div>
     </header>
@@ -111,7 +119,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous">
-    </script>
+            </script>
 </body>
 
 </html>

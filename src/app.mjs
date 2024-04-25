@@ -12,21 +12,28 @@ import { Strategy } from 'passport-google-oauth20';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { MessageRepository } from './message-repository.mjs';
+import { UserRepository } from './user-repository.mjs';
 
 await connect(process.env.DSN);
 
 const rootDirectory = dirname(fileURLToPath(import.meta.url));
 const publicDirectory = join(rootDirectory, 'public');
-const repository = new MessageRepository();
+const messages = new MessageRepository();
+const users = new UserRepository();
 
 passport.use(new Strategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK_URL
-}, (accessToken, refreshToken, profile, done) => {
+}, async (accessToken, refreshToken, profile, done) => {
     console.log("Create user called ", profile);
 
-
+    await users.addAsync({
+        accountId: profile.id,
+        name: profile.displayName,
+        imageUrl: profile.photos[0].value,
+        type: profile.provider
+    });
 
     done(null, profile);
 }));
@@ -57,11 +64,16 @@ express()
     }))
     .use(express.static(publicDirectory))
     .use(passport.authenticate('session'))
-    .get('/', async (_, response) => {
+    .use((request, response, next) => {
+        response.locals.user = request.user;
+
+        next();
+    })
+    .get('/', async (request, response) => {
         response.render('post');
     })
     .post('/api/message', async (request, response) => {
-        await repository.addAsync(request.body);
+        await messages.addAsync(request.body);
 
         response.sendStatus(200);
     })
@@ -70,11 +82,9 @@ express()
             latitude: request.query.latitude,
             longitude: request.query.longitude
         };
-        const messages = await repository.getAsync(
+        response.json(await messages.getAsync(
             coordinates,
-            request.query.accuracy);
-
-        response.json(messages);
+            request.query.accuracy));
     })
     .get('/auth/google', passport.authenticate('google', {
         scope: ['profile', 'email']
@@ -83,4 +93,13 @@ express()
         failureRedirect: '/login',
         successRedirect: '/'
     }))
+    .post('/auth/sign-out', (request, response, next) => {
+        request.logout(error => {
+            if (error) {
+                return next(error);
+            }
+
+            response.redirect('/');
+        });
+    })
     .listen(process.env.PORT || 3000);

@@ -139,7 +139,6 @@ function addMessage(message) {
     const row = document.createElement('tr');
     const cell = document.createElement('td');
 
-    console.log(message.type)
     switch (message.type) {
         case 'image':
             {
