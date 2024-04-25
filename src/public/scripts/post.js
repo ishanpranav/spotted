@@ -2,10 +2,8 @@
 // Copyright (c) 2024 Ishan Pranav
 // Licensed under the MIT license.
 
-import { io } from '/socket.io/socket.io.esm.min.js';
-import { SpottedClient } from './spotted-client.mjs';
+import { SpottedClient } from './spotted-client.js';
 
-let socket;
 const client = new SpottedClient();
 
 document.addEventListener('DOMContentLoaded', onDOMContentLoaded);
@@ -35,12 +33,6 @@ function getPictureBox() {
 }
 
 async function onDOMContentLoaded() {
-    socket = io();
-
-    socket.on('posted', message => {
-        addMessage(message);
-    });
-
     document
         .getElementById('postButton')
         .addEventListener('click', onPostButtonClick);
@@ -79,7 +71,6 @@ function confirmPost(message) {
         };
 
         if (await client.addMessageAsync(message)) {
-            socket.emit('post', message);
             addMessage(message);
         }
 
@@ -151,17 +142,19 @@ function addMessage(message) {
     console.log(message.type)
     switch (message.type) {
         case 'image':
-            const image = document.createElement('img');
+            {
+                const image = document.createElement('img');
 
-            image.src = message.content;
-            image.width = 96;
-            image.classList.add('img-thumbnail');
+                image.src = message.content;
+                image.width = 96;
+                image.classList.add('img-thumbnail');
 
-            cell.appendChild(image);
+                cell.appendChild(image);
+            }
             break;
 
         default:
-            cell.textContent = message.content + " (" + message.distance + "m)";
+            cell.textContent = message.content;
             break;
     }
 

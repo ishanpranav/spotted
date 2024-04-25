@@ -19,50 +19,6 @@ Graffiti-up the world with your anonymous notes or sign in to react to other
 notes. The ones with the best reactions stick around for others to see, while
 the rest gradually vanish.
 
-## Data model
-
-The application only stores _registered users_ and _messages_. Each registered
-user may be associated with many messages.
-
-### Sample user
-
-Users who want to interact with messages will sign in using a third-party
-provider like Google or Microsoft. The users collection just associates a user
-identifier with the third-party account information.
-
-```javascript
-{
-  id: // user id
-  account: // third-party sign-in account id
-  imageUrl: // third-party sign-in user profile picture
-}
-```
-
-### Sample message
-
-Text messages ("notes") and their locations of origin ("spots") are stored in
-the database.
-
-In this example, the position is only accurate to 55 meters, which will be taken
-into account when determining the radius in which others can see this message.
-
-```javascript
-{
-  user: // a reference to a User object or a null (anonymous) user
-  content: "Mark was here!",
-  coordinates: {
-    latitude: 40.738584,
-    longitude: -74.003851
-  },
-  posted: // timestamp
-}
-```
-
-### Schemata
-
-See [user.mjs](src/user.mjs) for the first-draft user schema and
-[message.mjs](src/message.mjs) for the first-draft message schema.
-
 ## Details
 
 ### Roles
@@ -86,20 +42,11 @@ See [user.mjs](src/user.mjs) for the first-draft user schema and
 - (2 points) **Use a user-interface framework.** I will use Bootstrap as the UI
   framework for the project. I will customize the color scheme.
 - (2 points) **Use a CSS preprocessor.** I will use Sass to compile SCSS to CSS.
-- (2 points) **Integrate ESLint into your workflow.** I will integrate ESLint
-  into the workflow using Webpack to automate linting. Since I am already using
-  Webpack, I can add ESLint as a build step. This enforces code style throughout
-  the development process.
 - (3 points) **Server-side JavaScript library: integrate user authentication.**
   I will use Passport for user authentication. Registered users should be able
   to sign in with Google.
 - (3 points) **Configuration management.** I will use _nconf_ to manage secrets
   and the database connection string.
-
-## Initial prototype
-
-Please see [app.mjs](src/app.mjs), [location.js](src/public/scripts), and the
-[views](src/views/) folder.
 
 ## References
 
@@ -111,3 +58,4 @@ Please see [app.mjs](src/app.mjs), [location.js](src/public/scripts), and the
    - [Calculate geometric Euclidean distance](https://gist.github.com/manix/7ce097c73728e07178af74cb4c62a341) - [geometry.mjs](src/geometry.mjs)
 4. [FileReader API - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL) -
     [post.mjs](src/public/scripts/post.mjs)
+5. [Passport.js Documentation](https://www.passportjs.org/docs/) - [app.mjs](src/app.mjs)

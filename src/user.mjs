@@ -5,7 +5,9 @@
 import { Schema, model } from 'mongoose';
 
 /** Represents a reigstered user. */
-export const User = model('User', new Schema({ 
+export const User = model('User', new Schema({
     accountId: String,
-    imageUrl: String
+    name: String,
+    imageUrl: String,
+    type: String
 }));
