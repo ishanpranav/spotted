@@ -20,7 +20,8 @@ await connect(process.env.DSN);
 const app = express();
 const server = createServer(app);
 const socketIO = new Server(server);
-const publicDirectory = join(dirname(fileURLToPath(import.meta.url)), 'public');
+const rootDirectory = dirname(fileURLToPath(import.meta.url));
+const publicDirectory = join(rootDirectory, 'public');
 const repository = new MessageRepository();
 
 passport.use(new Strategy({
