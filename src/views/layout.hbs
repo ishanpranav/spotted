@@ -66,13 +66,16 @@
                        class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                        data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        <img src="https://github.com/mdo.png"
+                        <img src="{{user.imageURL}}"
                              alt="mdo"
                              width="32"
                              height="32"
                              class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu text-small shadow">
+                        <li>
+                            <h6 class="dropdown-header">{{user.name}}</h6>
+                        </li>
                         <li><a class="dropdown-item"
                                href="#">New project...</a></li>
                         <li><a class="dropdown-item"
@@ -85,9 +88,11 @@
                         <li>
                             <form method="post"
                                   action="/auth/sign-out">
-                                <input class="dropdown-item"
-                                       type="submit"
-                                       value="Sign out" />
+                                <button class="dropdown-item"
+                                        type="submit"
+                                        value="Sign out">
+                                    Sign out
+                                </button>
                             </form>
                         </li>
                     </ul>
