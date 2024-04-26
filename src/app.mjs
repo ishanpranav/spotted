@@ -52,14 +52,6 @@ passport.deserializeUser((user, callback) => {
     process.nextTick(() => callback(null, user));
 });
 
-async function authenticateAsync(request, response, next) {
-    if (request.user) {
-        response.locals.user = await users.getAsync(request.user.id);
-    }
-
-    next();
-}
-
 express()
     .set('view engine', 'hbs')
     .use(express.json({
@@ -72,7 +64,11 @@ express()
     }))
     .use(express.static(publicDirectory))
     .use(passport.authenticate('session'))
-    .get('/', authenticateAsync, async (_, response) => {
+    .get('/', async (_, response) => {
+        if (request.user) {
+            response.locals.user = await users.getAsync(request.user.id);
+        }
+        
         response.render('post');
     })
     .post('/api/message', async (request, response) => {
@@ -85,6 +81,7 @@ express()
             latitude: request.query.latitude,
             longitude: request.query.longitude
         };
+
         response.json(await messages.getAsync(
             coordinates,
             request.query.accuracy));
