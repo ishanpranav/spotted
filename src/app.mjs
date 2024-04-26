@@ -66,6 +66,7 @@ express()
     .use(passport.authenticate('session'))
     .use((request, response, next) => {
         response.locals.user = request.user;
+        response.locals.userProfilePhoto = request.user.profile.photos[0].value;
 
         next();
     })
