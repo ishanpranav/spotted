@@ -66,7 +66,9 @@ express()
     .use(passport.authenticate('session'))
     .get('/', async (_, response) => {
         if (request.user) {
-            response.locals.user = await users.getAsync(request.user.id);
+            response.locals.user = await users.getAsync(
+                request.user.id, 
+                'google');
         }
         
         response.render('post');
