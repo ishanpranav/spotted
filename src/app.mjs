@@ -31,7 +31,7 @@ passport.use(new Strategy({
     await users.addAsync({
         accountId: profile.id,
         name: profile.displayName,
-        imageUrl: profile.photos[0].value,
+        imageURL: profile.photos[0].value,
         type: profile.provider
     });
 
@@ -52,6 +52,14 @@ passport.deserializeUser((user, callback) => {
     process.nextTick(() => callback(null, user));
 });
 
+async function authenticateAsync(request, response, next) {
+    if (request.user) {
+        response.locals.user = await users.getAsync(request.user.id);
+    }
+
+    next();
+}
+
 express()
     .set('view engine', 'hbs')
     .use(express.json({
@@ -64,17 +72,7 @@ express()
     }))
     .use(express.static(publicDirectory))
     .use(passport.authenticate('session'))
-    .use((request, response, next) => {
-        const user = request.user;
-
-        if (user) {
-            response.locals.user = user;
-            response.locals.userProfilePhoto = user.profile.photos[0].value;
-        }
-
-        next();
-    })
-    .get('/', async (request, response) => {
+    .get('/', authenticateAsync, async (_, response) => {
         response.render('post');
     })
     .post('/api/message', async (request, response) => {

@@ -17,4 +17,13 @@ export class UserRepository {
     async addAsync(user) {
         await new User(user).save();
     }
+
+    /**
+     * 
+     * @param {*} id 
+     * @returns 
+     */
+    async getAsync(id) {
+        return await User.findOne({ id: id });
+    }
 }

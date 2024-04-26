@@ -8,6 +8,6 @@ import { Schema, model } from 'mongoose';
 export const User = model('User', new Schema({
     accountId: String,
     name: String,
-    imageUrl: String,
+    imageURL: String,
     type: String
 }));
