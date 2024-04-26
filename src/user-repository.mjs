@@ -20,10 +20,14 @@ export class UserRepository {
 
     /**
      * 
-     * @param {*} id 
+     * @param {*} accountId
+     * @param {*} type 
      * @returns 
      */
-    async getAsync(id) {
-        return await User.findOne({ id: id });
+    async getAsync(accountId, type) {
+        return await User.findOne({ 
+            accountId: accountId,
+            type: type
+        });
     }
 }
