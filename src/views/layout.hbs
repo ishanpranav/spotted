@@ -66,7 +66,7 @@
                        class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                        data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        <img src="{{user.imageURL}}"
+                        <img src="{{user.profile.photos[0].value}}"
                              alt="mdo"
                              width="32"
                              height="32"
@@ -74,7 +74,9 @@
                     </a>
                     <ul class="dropdown-menu text-small shadow">
                         <li>
-                            <h6 class="dropdown-header">{{user.name}}</h6>
+                            <h6 class="dropdown-header">
+                                {{user.profile.name}}
+                            </h6>
                         </li>
                         <li><a class="dropdown-item"
                                href="#">New project...</a></li>
