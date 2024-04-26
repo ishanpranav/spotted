@@ -65,8 +65,12 @@ express()
     .use(express.static(publicDirectory))
     .use(passport.authenticate('session'))
     .use((request, response, next) => {
-        response.locals.user = request.user;
-        response.locals.userProfilePhoto = request.user.profile.photos[0].value;
+        const user = request.user;
+
+        if (user) {
+            response.locals.user = user;
+            response.locals.userProfilePhoto = user.profile.photos[0].value;
+        }
 
         next();
     })
