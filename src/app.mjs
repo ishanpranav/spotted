@@ -64,7 +64,7 @@ express()
     }))
     .use(express.static(publicDirectory))
     .use(passport.authenticate('session'))
-    .get('/', async (_, response) => {
+    .get('/', async (request, response) => {
         if (request.user) {
             response.locals.user = await users.getAsync(
                 request.user.id, 
