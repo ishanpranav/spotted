@@ -83,16 +83,19 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item"
-                               href="/auth/sign-out">
-                                Sign out
-                            </a>
+                            <form method="post"
+                                  action="/auth/sign-out">
+                                <input class="dropdown-item"
+                                       type="submit"
+                                       value="Sign out" />
+                            </form>
                         </li>
                     </ul>
                 </div>
                 {{else}}
                 <div class="flex-shrink-0">
-                    <a class="nav-link" href="/auth/google">Sign in</a>
+                    <a class="nav-link"
+                       href="/auth/google">Sign in</a>
                 </div>
                 {{/if}}
             </div>
@@ -106,7 +109,7 @@
             <p class="text-center text-body-secondary">
                 <span>
                     Copyright &copy; 2024 Ishan Pranav. Licensed under the MIT
-                    license.
+                    license. Hello, {{user.name}}.
                 </span>
                 <br />
                 <span>Layouts and styles provided by </span>
