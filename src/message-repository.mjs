@@ -97,8 +97,7 @@ export class MessageRepository {
                 new: true,
                 safe: true,
                 upsert: true
-            },
-            () => { }
+            }
         );
     }
 
@@ -118,8 +117,7 @@ export class MessageRepository {
                 new: true,
                 safe: true,
                 upsert: true
-            },
-            () => { }
+            }
         );
     }
 }
