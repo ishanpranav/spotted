@@ -18,7 +18,7 @@ export class MessageRepository {
      * @returns {Promise} A promise representing the asynchronous add operation.
      */
     async addAsync(user, message) {
-        message.user = user._id;
+        message.user = user;
         message.content = message.content.trim();
 
         if (!message.content.length) {

@@ -176,6 +176,9 @@ function addMessage(message) {
         likeIcon.classList.add('bi-heart');
     }
 
+    profileImage.width = 20;
+    profileImage.height = 20;
+    
     if (message.user) {
         profileImage.src = message.user.imageURL;
         profileImage.alt = message.user.name;
@@ -193,8 +196,6 @@ function addMessage(message) {
             profileImage.src = "images/laughing.png";
         }
 
-        profileImage.width = 20;
-        profileImage.height = 20;
         profileImage.alt = "Anonymous";
         strong.textContent = "Anonymous";
     }
