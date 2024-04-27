@@ -23,9 +23,7 @@ export class MessageRepository {
             return;
         }
 
-        await new Message(message).save();
-
-        return this.getCleanMessage(null, 0, message);
+        return this.getCleanMessage(null, 0, await new Message(message).save());
     }
 
     getCleanMessage(user, distance, message) {
@@ -34,7 +32,7 @@ export class MessageRepository {
             content: message.content,
             type: message.type,
             distance: distance,
-            posted: message.posted
+            posted: message.posted ?? Date.now()
         };
 
         if (message.user) {
