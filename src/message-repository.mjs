@@ -72,7 +72,7 @@ export class MessageRepository {
                 };
             }
 
-            if (user && message.likes.indexOf(user._id)) {
+            if (user && message.likes.indexOf(user._id) != -1) {
                 result.liked = true;
             }
 
