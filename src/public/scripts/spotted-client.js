@@ -65,8 +65,6 @@ export class SpottedClient {
             return response.ok;
         } catch {
             window.location.href = '/auth/google';
-
-            return false;
         }
     }
 
@@ -90,8 +88,6 @@ export class SpottedClient {
             return response.ok;
         } catch {
             window.location.href = '/auth/google';
-        
-            return false;
         }
     }
 }
