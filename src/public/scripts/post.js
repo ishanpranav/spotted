@@ -9,6 +9,10 @@ const client = new SpottedClient();
 
 document.addEventListener('DOMContentLoaded', onDOMContentLoaded);
 
+function getToastContainer() {
+    return document.getElementById('toastContainer');
+}
+
 function getMessageTab() {
     return document.getElementById('messageTab');
 }
@@ -41,10 +45,20 @@ async function onDOMContentLoaded() {
     getImageTab().addEventListener('click', onImageTabClick);
     getImageInput().addEventListener('input', onImageInputInput);
 
+    for (const toast of document.querySelectorAll('.toast')) {
+        Toast
+            .getOrCreateInstance(toast, {
+                autohide: false
+            })
+            .show();
+    }
+
     navigator.geolocation.getCurrentPosition(async position => {
         const messages = await client.getMessagesAsync(
             position.coords,
             position.coords.accuracy);
+
+        getToastContainer().innerHTML = '';
 
         for (const message of messages) {
             addMessage(message);
@@ -143,6 +157,7 @@ function addMessage(message) {
     const profileImage = document.createElement('img');
     const strong = document.createElement('strong');
     const small = document.createElement('small');
+    const time = document.createElement('time');
 
     toast.classList.add('toast');
     toastHeader.classList.add('toast-header');
@@ -150,7 +165,7 @@ function addMessage(message) {
     profileImage.classList.add('rounded');
     profileImage.classList.add('me-2');
     strong.classList.add('me-auto');
-    
+
     if (message.user) {
         profileImage.src = message.user.imageURL;
         profileImage.alt = message.user.name;
@@ -174,9 +189,11 @@ function addMessage(message) {
         strong.textContent = "Anonymous";
     }
 
-    if (message.timestamp) {
-        small.textContent = message.timestamp.toString();
-    }
+    const posted = moment(message.posted);
+
+    time.textContent = posted.fromNow();
+    time.datetime - message.posted.toString();
+    time.title = posted.format('MMM D, YYYY [at] h:mm');
 
     switch (message.type) {
         case 'image':
@@ -186,7 +203,7 @@ function addMessage(message) {
                 image.src = message.content;
                 image.width = 96;
 
-                image.classList.add('img-thumbnail');
+                image.classList.add('rounded');
                 toastBody.appendChild(image);
             }
             break;
@@ -198,12 +215,11 @@ function addMessage(message) {
 
     toastHeader.appendChild(profileImage);
     toastHeader.appendChild(strong);
+    small.appendChild(time);
     toastHeader.appendChild(small);
     toast.appendChild(toastHeader);
     toast.appendChild(toastBody);
-    document
-        .getElementById('toastContainer')
-        .appendChild(toast);
+    getToastContainer().appendChild(toast);
     Toast
         .getOrCreateInstance(toast, {
             autohide: false

@@ -31,13 +31,18 @@ export class MessageRepository {
      * @param {*} accuracy 
      */
     async getAsync(coordinates, accuracy) {
-        const messages = await Message.find().populate('user');
+        const messages = await Message
+            .find()
+            .populate('user')
+            .sort([['posted', -1]])
+            .exec();
+
         const theta = Math.max(50, accuracy);
         const results = [];
 
         for (const message of messages) {
             const distance = haversineDistance(
-                coordinates, 
+                coordinates,
                 message.coordinates);
 
             console.log(distance);
@@ -50,9 +55,9 @@ export class MessageRepository {
                 content: message.content,
                 type: message.type,
                 distance: distance,
-                timestamp: message.timestamp
+                posted: message.posted
             };
-            
+
             if (message.user) {
                 result.user = {
                     name: message.user.name,

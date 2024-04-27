@@ -59,3 +59,15 @@ the rest gradually vanish.
 4. [FileReader API - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL) -
     [post.mjs](src/public/scripts/post.mjs)
 5. [Passport.js Documentation](https://www.passportjs.org/docs/) - [app.mjs](src/app.mjs)
+6. [Moment.js Documentation](https://momentjs.com/) - [post.js](src/post.js)
+
+## License
+
+This repository is licensed under the [MIT](LICENSE.txt) license.
+
+## Attribution
+
+The logo and default icons for this project were designed by
+[AoMam on Flaticon](https://www.flaticon.com/authors/aomam). Layouts and styles
+are provided by [Bootstrap](https://getbootstrap.com/). This repository
+redistributes [Moment.js](https://momentjs.com/) by Tim Wood, Iskren Chernev, and the Moment.js contributors. Moment.js is licensed under the MIT license.

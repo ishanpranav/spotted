@@ -4,17 +4,49 @@
 
 <div aria-live="polite"
      aria-atomic="true"
-     class="spotted-overflow-container bg-body-secondary position-relative bd-example-toasts rounded-3">
-    <div class="toast-container p-3 position-relative"
+     class="spotted-overflow-container bg-body-secondary position-relative rounded-3">
+    <div class="toast-container p-3 position-relative placeholder-glow"
          id="toastContainer">
-         <div class="toast">
+        <div class="toast">
             <div class="toast-header">
-                <img class="placeholder" src="" alt="" />
+                <svg class="rounded me-2 placeholder"
+                     width="20"
+                     height="20">
+                </svg>
             </div>
             <div class="toast-body">
-                Hello
+                <span class="placeholder col-6"></span>
+                <span class="placeholder w-75"></span>
+                <span class="placeholder w-25"></span>
             </div>
-         </div>
+        </div>
+        <div class="toast">
+            <div class="toast-header">
+                <svg class="rounded me-2 placeholder"
+                     width="20"
+                     height="20">
+                </svg>
+            </div>
+            <div class="toast-body">
+                <span class="placeholder col-6"></span>
+                <span class="placeholder w-75"></span>
+                <span class="placeholder w-25"></span>
+            </div>
+        </div>
+        <div class="toast">
+            <div class="toast-header">
+                <svg class="rounded me-2 placeholder"
+                     width="20"
+                     height="20">
+                </svg>
+            </div>
+            <div class="toast-body">
+                <svg class="rounded placeholder"
+                     width="128"
+                     height="128">
+                </svg>
+            </div>
+        </div>
     </div>
 </div>
 <ul class="nav nav-tabs my-2">
@@ -71,5 +103,7 @@
       }
     }
 </script>
+<script src="/scripts/moment.js"
+        type="text/javascript"></script>
 <script src="/scripts/post.js"
         type="module"></script>

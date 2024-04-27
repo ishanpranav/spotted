@@ -1,3 +1,4 @@
 # Licensed under the MIT license.
 
 src/public/styles/custom-bootstrap.css linguist-generated
+src/public/scripts/moment.js linguist-vendored
