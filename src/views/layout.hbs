@@ -29,14 +29,15 @@
       }
     }
     </script>
-    <script src="/scripts/layout.js" type="module"></script>
+    <script src="/scripts/layout.js"
+            type="module"></script>
 </head>
 
 <body class="d-flex flex-column h-100">
-    <header class="py-3 mb-3 border-bottom">
-        <div class="container-fluid d-grid gap-3 align-items-center"
-             style="grid-template-columns: 1fr 2fr;">
-            <div>
+
+    <header class="p-3 mb-3 border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="#"
                    class="d-flex align-items-center mx-2 mb-2 mb-lg-0 link-body-emphasis text-decoration-none"
                    aria-expanded="false">
@@ -47,10 +48,10 @@
                          height="32" />
                     <span class="fs-4 mx-2">Spotted</span>
                 </a>
-            </div>
-            <div class="text-end mx-3">
+                <div class="col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"></div>
+                <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"></div>
                 {{#if user}}
-                <div class="flex-shrink-0 dropdown">
+                <div class="dropdown text-end">
                     <a href="#"
                        class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                        data-bs-toggle="dropdown"
@@ -61,7 +62,7 @@
                              height="32"
                              class="rounded-circle">
                     </a>
-                    <ul class="dropdown-menu text-small shadow">
+                    <ul class="dropdown-menu text-small">
                         <li>
                             <h6 class="dropdown-header">
                                 {{user.name}}
@@ -80,7 +81,7 @@
                     </ul>
                 </div>
                 {{else}}
-                <div class="flex-shrink-0">
+                <div class="text-end">
                     <a class="nav-link"
                        href="/auth/google">
                         Sign in
