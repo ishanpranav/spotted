@@ -96,7 +96,7 @@ export class MessageRepository {
      * @return {Promise} A promise representing the asynchronous like operation.
      */
     async likeAsync(user, id) {
-        Message.findByIdAndUpdate(
+        await Message.findByIdAndUpdate(
             id,
             { $push: { likes: user._id } }
         );
@@ -111,7 +111,7 @@ export class MessageRepository {
      *                   operation.
      */
     async unlikeAsync(user, id) {
-        Message.findByIdAndUpdate(
+        await Message.findByIdAndUpdate(
             id,
             { $pullAll: { likes: user._id } }
         );
