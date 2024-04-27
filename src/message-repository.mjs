@@ -90,7 +90,16 @@ export class MessageRepository {
      * @return {Promise} A promise representing the asynchronous like operation.
      */
     async likeAsync(user, id) {
-        console.log("user ", user, "likes message ", id);
+        Message.findByIdAndUpdate(
+            id,
+            { $push: { likes: user._id } },
+            {
+                new: true,
+                safe: true,
+                upsert: true
+            },
+            () => { }
+        );
     }
 
     /**
@@ -102,6 +111,15 @@ export class MessageRepository {
      *                   operation.
      */
     async unlikeAsync(user, id) {
-        console.log("user ", user, "unlikes message ", id);
+        Message.findByIdAndUpdate(
+            id,
+            { $pop: { likes: user._id } },
+            {
+                new: true,
+                safe: true,
+                upsert: true
+            },
+            () => { }
+        );
     }
 }
