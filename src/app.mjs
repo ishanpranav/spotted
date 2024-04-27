@@ -31,8 +31,6 @@ passport.use(new Strategy({
     clientSecret: nconf.get('GOOGLE_CLIENT_SECRET'),
     callbackURL: nconf.get('GOOGLE_CALLBACK_URL')
 }, async (accessToken, refreshToken, profile, done) => {
-    console.log("Create user called ", profile);
-
     await users.addAsync({
         accountId: profile.id,
         name: profile.displayName,

@@ -25,7 +25,40 @@ export class MessageRepository {
 
         await new Message(message).save();
 
-        return message;
+        return this.getCleanMessage(message);
+    }
+
+    getCleanMessage(message) {
+        const distance = haversineDistance(
+            coordinates,
+            message.coordinates);
+
+        console.log(distance);
+
+        if (distance > theta) {
+            return null;
+        }
+
+        const result = {
+            id: message._id,
+            content: message.content,
+            type: message.type,
+            distance: distance,
+            posted: message.posted
+        };
+
+        if (message.user) {
+            result.user = {
+                name: message.user.name,
+                imageURL: message.user.imageURL
+            };
+        }
+
+        if (user && message.likes.indexOf(user._id) != -1) {
+            result.liked = true;
+        }
+
+        return result;
     }
 
     /**
@@ -49,36 +82,7 @@ export class MessageRepository {
         const results = [];
 
         for (const message of messages) {
-            const distance = haversineDistance(
-                coordinates,
-                message.coordinates);
-
-            console.log(distance);
-
-            if (distance > theta) {
-                continue;
-            }
-
-            const result = {
-                id: message._id,
-                content: message.content,
-                type: message.type,
-                distance: distance,
-                posted: message.posted
-            };
-
-            if (message.user) {
-                result.user = {
-                    name: message.user.name,
-                    imageURL: message.user.imageURL
-                };
-            }
-
-            if (user && message.likes.indexOf(user._id) != -1) {
-                result.liked = true;
-            }
-
-            results.push(result);
+            results.push(this.getCleanMessage(message));
         }
 
         return results;
