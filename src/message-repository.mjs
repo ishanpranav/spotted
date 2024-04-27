@@ -29,16 +29,6 @@ export class MessageRepository {
     }
 
     getCleanMessage(message) {
-        const distance = haversineDistance(
-            coordinates,
-            message.coordinates);
-
-        console.log(distance);
-
-        if (distance > theta) {
-            return null;
-        }
-
         const result = {
             id: message._id,
             content: message.content,
@@ -82,6 +72,16 @@ export class MessageRepository {
         const results = [];
 
         for (const message of messages) {
+            const distance = haversineDistance(
+                coordinates,
+                message.coordinates);
+    
+            console.log(distance);
+    
+            if (distance > theta) {
+                return null;
+            }
+    
             results.push(this.getCleanMessage(message));
         }
 
