@@ -98,12 +98,7 @@ export class MessageRepository {
     async likeAsync(user, id) {
         Message.findByIdAndUpdate(
             id,
-            { $push: { likes: user._id } },
-            {
-                new: true,
-                safe: true,
-                upsert: true
-            }
+            { $push: { likes: user._id } }
         );
     }
 
@@ -118,12 +113,7 @@ export class MessageRepository {
     async unlikeAsync(user, id) {
         Message.findByIdAndUpdate(
             id,
-            { $pullAll: { likes: user._id } },
-            {
-                new: true,
-                safe: true,
-                upsert: true
-            }
+            { $pullAll: { likes: user._id } }
         );
     }
 }
