@@ -53,8 +53,10 @@ export class SpottedClient {
      *                    operation.
      */
     async likeMessageAsync(id) {
+        let response;
+
         try {
-            const response = await fetch(`/api/like`, {
+            response = await fetch(`/api/like`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json'
@@ -62,10 +64,12 @@ export class SpottedClient {
                 body: JSON.stringify({ id: id })
             });
 
-            return await response.json();
+            return response.ok;
         } catch {
             window.location.href = '/auth/google';
         }
+
+        return response.ok;
     }
 
     /**
@@ -76,18 +80,20 @@ export class SpottedClient {
      *                    operation.
      */
     async unlikeMessageAsync() {
+        let response;
+
         try {
-            const response = await fetch(`/api/unlike`, {
+            response = await fetch(`/api/unlike`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ id: id })
             });
-
-            return await response.json();
         } catch {
             window.location.href = '/auth/google';
         }
+
+        return response.ok;
     }
 }
