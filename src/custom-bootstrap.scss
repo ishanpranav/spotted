@@ -2,13 +2,12 @@
 /* Licensed under the MIT license. */
 
 @import "../node_modules/bootstrap/scss/functions";
-
-$color-mode-type: data;
-
 @import "../node_modules/bootstrap/scss/variables";
 
 $link-color: $indigo-700;
+$link-color-dark: $indigo-400;
 $link-hover-color: $indigo-600;
+$link-hover-color-dark: $indigo-300;
 
 @import "../node_modules/bootstrap/scss/maps";
 
@@ -17,6 +16,8 @@ $theme-colors: (
 );
 
 @import "../node_modules/bootstrap/scss/mixins";
+
+$color-mode-type: media-query;
 
 @include color-mode(dark) {
     .element {
