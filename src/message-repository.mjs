@@ -5,15 +5,16 @@
 import { haversineDistance } from './geometry.mjs';
 import { Message } from './message.mjs';
 
-/**  */
+/** Provides a repository for messages. */
 export class MessageRepository {
     /** Initializes a new instance of the `MessageRepository` class. */
     constructor() { }
 
     /**
+     * Asynchronously adds a message.
      * 
-     * @param {*} message 
-     * @returns 
+     * @param {*} message the message to add.
+     * @returns {Promise} A promise representing the asynchronous add operation.
      */
     async addAsync(message) {
         message.content = message.content.trim();
@@ -26,9 +27,12 @@ export class MessageRepository {
     }
 
     /**
+     * Asynchronously gets all messages available at the given location.
      * 
-     * @param {*} coordinates 
-     * @param {*} accuracy 
+     * @param {*} coordinates the coordinates of the location.
+     * @param {*} accuracy    the accuracy of the specified coordinates.
+     * @return {Promise} a promise whose result contains the collection of
+     *                   messages available at the given location.
      */
     async getAsync(coordinates, accuracy) {
         const messages = await Message

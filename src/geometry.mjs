@@ -4,10 +4,11 @@
 // https://gist.github.com/manix/7ce097c73728e07178af74cb4c62a341
 
 /**
+ * Computes the Haversine distance between two points.
  * 
- * @param {*} p 
- * @param {*} q 
- * @returns 
+ * @param {*} p the source point
+ * @param {*} q the destination point
+ * @returns The estimated Haversine distance between `p` and `q`.
  * @see https://en.wikipedia.org/wiki/Haversine_formula
  */
 export function haversineDistance(p, q) {
