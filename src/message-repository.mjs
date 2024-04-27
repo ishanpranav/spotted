@@ -31,9 +31,8 @@ export class MessageRepository {
      * @param {*} accuracy 
      */
     async getAsync(coordinates, accuracy) {
-        const messages = await Message.find();
+        const messages = await Message.find().populate('user');
         const theta = Math.max(50, accuracy);
-
         const results = [];
 
         for (const message of messages) {
@@ -47,11 +46,21 @@ export class MessageRepository {
                 continue;
             }
 
-            results.push({
+            const result = {
                 content: message.content,
                 type: message.type,
-                distance: distance
-            });
+                distance: distance,
+                timestamp: message.timestamp
+            };
+            
+            if (message.user) {
+                result.user = {
+                    name: message.user.name,
+                    imageURL: message.user.imageURL
+                };
+            }
+
+            results.push(result);
         }
 
         return results;

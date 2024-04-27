@@ -9,7 +9,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0" />
-    <title>Spotted</title>
+    <title>Spotted - Ishan Pranav</title>
+    <link href="/favicon.ico"
+          rel="icon"
+          type="image/x-icon" />
     <link href="/styles/layout.css"
           rel="stylesheet"
           type="text/css" />
@@ -22,44 +25,19 @@
     <header class="py-3 mb-3 border-bottom">
         <div class="container-fluid d-grid gap-3 align-items-center"
              style="grid-template-columns: 1fr 2fr;">
-            <div class="dropdown">
+            <div>
                 <a href="#"
-                   class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-body-emphasis text-decoration-none dropdown-toggle"
-                   data-bs-toggle="dropdown"
+                   class="d-flex align-items-center mx-2 mb-2 mb-lg-0 link-body-emphasis text-decoration-none"
                    aria-expanded="false">
-                    <svg class="bi me-2"
-                         width="40"
-                         height="32">
-                        <use xlink:href="#bootstrap" />
-                    </svg>
+                    <img class="bi me-2"
+                         alt="Logo"
+                         src="/images/cool.png"
+                         width="32"
+                         height="32" />
+                    <span class="fs-4 mx-2">Spotted</span>
                 </a>
-                <ul class="dropdown-menu text-small shadow">
-                    <li><a class="dropdown-item active"
-                           href="#"
-                           aria-current="page">Overview</a></li>
-                    <li><a class="dropdown-item"
-                           href="#">Inventory</a></li>
-                    <li><a class="dropdown-item"
-                           href="#">Customers</a></li>
-                    <li><a class="dropdown-item"
-                           href="#">Products</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item"
-                           href="#">Reports</a></li>
-                    <li><a class="dropdown-item"
-                           href="#">Analytics</a></li>
-                </ul>
             </div>
-            <div class="d-flex align-items-center">
-                <form class="w-100 me-3"
-                      role="search">
-                    <input type="search"
-                           class="form-control"
-                           placeholder="Search..."
-                           aria-label="Search">
-                </form>
+            <div class="text-end mx-3">
                 {{#if user}}
                 <div class="flex-shrink-0 dropdown">
                     <a href="#"
@@ -77,21 +55,6 @@
                             <h6 class="dropdown-header">
                                 {{user.name}}
                             </h6>
-                        </li>
-                        <li>
-                            <a class="dropdown-item"
-                               href="#">New project...</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item"
-                               href="#">Settings</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item"
-                               href="#">Profile</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider" />
                         </li>
                         <li>
                             <form method="post"
@@ -116,21 +79,32 @@
             </div>
         </div>
     </header>
-    <div class="col-lg-8 mx-auto p-4 py-md-5">
+    <div class="col-lg-8 mx-auto px-4 pb-md-5">
         <main class="flex-shrink-0">
             <div>{{{ body }}}</div>
         </main>
-        <footer class="footer py-3 my-4 small">
+        <footer class="footer pb-3 my-4 small">
             <p class="text-center text-body-secondary">
                 <span>
                     Copyright &copy; 2024 Ishan Pranav. Licensed under the MIT
-                    license. Hello, {{user.name}}.
+                    license.
                 </span>
+                <br />
+                <span>
+                    The logo and default icons for this project were designed by
+                </span>
+                <a class="text-decoration-none"
+                   href="https://www.flaticon.com/authors/aomam"
+                   target="_blank">
+                    AomAm on Flaticon.
+                </a>
                 <br />
                 <span>Layouts and styles provided by </span>
                 <a class="text-decoration-none"
                    href="https://getbootstrap.com/"
-                   target="_blank">Bootstrap.</a>
+                   target="_blank">
+                    Bootstrap.
+                </a>
             </p>
         </footer>
     </div>

@@ -2,6 +2,7 @@
 // Copyright (c) 2024 Ishan Pranav
 // Licensed under the MIT license.
 
+import { Toast } from 'bootstrap';
 import { SpottedClient } from './spotted-client.js';
 
 const client = new SpottedClient();
@@ -136,8 +137,46 @@ function onImageInputInput(e) {
 }
 
 function addMessage(message) {
-    const row = document.createElement('tr');
-    const cell = document.createElement('td');
+    const toast = document.createElement('div');
+    const toastHeader = document.createElement('div');
+    const toastBody = document.createElement('div');
+    const profileImage = document.createElement('img');
+    const strong = document.createElement('strong');
+    const small = document.createElement('small');
+
+    toast.classList.add('toast');
+    toastHeader.classList.add('toast-header');
+    toastBody.classList.add('toast-body');
+    profileImage.classList.add('rounded');
+    profileImage.classList.add('me-2');
+    strong.classList.add('me-auto');
+    
+    if (message.user) {
+        profileImage.src = message.user.imageURL;
+        profileImage.alt = message.user.name;
+        strong.textContent = message.user.name;
+    } else {
+        const random = Math.random();
+
+        if (random < 0.25) {
+            profileImage.src = "images/cool.png";
+        } else if (random < 0.5) {
+            profileImage.src = "images/grinning.png";
+        } else if (random < 0.75) {
+            profileImage.src = "images/happy.png";
+        } else {
+            profileImage.src = "images/laughing.png";
+        }
+
+        profileImage.width = 20;
+        profileImage.height = 20;
+        profileImage.alt = "Anonymous";
+        strong.textContent = "Anonymous";
+    }
+
+    if (message.timestamp) {
+        small.textContent = message.timestamp.toString();
+    }
 
     switch (message.type) {
         case 'image':
@@ -146,17 +185,28 @@ function addMessage(message) {
 
                 image.src = message.content;
                 image.width = 96;
-                image.classList.add('img-thumbnail');
 
-                cell.appendChild(image);
+                image.classList.add('img-thumbnail');
+                toastBody.appendChild(image);
             }
             break;
 
         default:
-            cell.textContent = message.content;
+            toastBody.textContent = message.content;
             break;
     }
 
-    row.appendChild(cell);
-    document.getElementById('messagesTable').appendChild(row);
+    toastHeader.appendChild(profileImage);
+    toastHeader.appendChild(strong);
+    toastHeader.appendChild(small);
+    toast.appendChild(toastHeader);
+    toast.appendChild(toastBody);
+    document
+        .getElementById('toastContainer')
+        .appendChild(toast);
+    Toast
+        .getOrCreateInstance(toast, {
+            autohide: false
+        })
+        .show();
 }

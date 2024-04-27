@@ -15,6 +15,9 @@ export const Message = model('Message', new Schema({
         latitude: Number,
         longitude: Number
     },
-    posted: Date,
+    posted: {
+        type: Date,
+        default: Date.now
+    },
     type: String
 }));
