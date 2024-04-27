@@ -199,6 +199,10 @@ function addMessage(message) {
         strong.textContent = "Anonymous";
     }
 
+    if (!message.posted) {
+        message.posted = Date.now();
+    }
+    
     const posted = moment(message.posted);
 
     time.textContent = posted.fromNow();
