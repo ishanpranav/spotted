@@ -25,10 +25,10 @@ export class MessageRepository {
 
         await new Message(message).save();
 
-        return this.getCleanMessage(message);
+        return this.getCleanMessage(null, 0, message);
     }
 
-    getCleanMessage(message) {
+    getCleanMessage(user, distance, message) {
         const result = {
             id: message._id,
             content: message.content,
@@ -82,7 +82,7 @@ export class MessageRepository {
                 return null;
             }
     
-            results.push(this.getCleanMessage(message));
+            results.push(this.getCleanMessage(user, distance, message));
         }
 
         return results;
