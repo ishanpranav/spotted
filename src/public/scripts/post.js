@@ -258,6 +258,6 @@ async function onLikeButtonClick(icon, id) {
         await client.unlikeMessageAsync(id);
 
         icon.classList.remove('bi-heart-fill');
-        icon.classList.add('bi-heart-fill');
+        icon.classList.add('bi-heart');
     }
 }
