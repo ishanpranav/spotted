@@ -42,7 +42,7 @@ export class SpottedClient {
             body: JSON.stringify(message)
         });
 
-        return response.ok;
+        return await response.json();
     }
 
     /**

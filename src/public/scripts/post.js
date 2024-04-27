@@ -85,7 +85,7 @@ function confirmPost(message) {
             longitude: position.coords.longitude
         };
 
-        if (await client.addMessageAsync(message)) {
+        if ((message = await client.addMessageAsync(message))) {
             addMessage(message);
         }
 

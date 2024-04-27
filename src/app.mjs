@@ -79,9 +79,7 @@ express()
         response.render('post');
     })
     .post('/api/message', async (request, response) => {
-        await messages.addAsync(request.body);
-
-        response.sendStatus(200);
+        response.json(await messages.addAsync(request.body));
     })
     .get('/api/messages', async (request, response) => {
         const coordinates = {

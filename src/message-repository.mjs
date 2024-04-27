@@ -24,6 +24,8 @@ export class MessageRepository {
         }
 
         await new Message(message).save();
+
+        return message;
     }
 
     /**
