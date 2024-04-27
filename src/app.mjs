@@ -2,11 +2,11 @@
 // Copyright (c) 2024 Ishan Pranav
 // Licensed under the MIT license.
 
-import './config.mjs'; // first
-
 import express from 'express';
 import session from 'express-session';
+import nconf from 'nconf';
 import passport from 'passport';
+import { config } from 'dotenv';
 import { connect } from 'mongoose';
 import { Strategy } from 'passport-google-oauth20';
 import { dirname, join } from 'path';
@@ -14,7 +14,12 @@ import { fileURLToPath } from 'url';
 import { MessageRepository } from './message-repository.mjs';
 import { UserRepository } from './user-repository.mjs';
 
-await connect(process.env.DSN);
+config();
+nconf
+    .argv()
+    .env();
+
+await connect(nconf.get('DSN'));
 
 const rootDirectory = dirname(fileURLToPath(import.meta.url));
 const publicDirectory = join(rootDirectory, 'public');
@@ -22,9 +27,9 @@ const messages = new MessageRepository();
 const users = new UserRepository();
 
 passport.use(new Strategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL
+    clientID: nconf.get('GOOGLE_CLIENT_ID'),
+    clientSecret: nconf.get('GOOGLE_CLIENT_SECRET'),
+    callbackURL: nconf.get('GOOGLE_CALLBACK_URL')
 }, async (accessToken, refreshToken, profile, done) => {
     console.log("Create user called ", profile);
 
@@ -58,7 +63,7 @@ express()
         limit: '32mb'
     }))
     .use(session({
-        secret: process.env.SESSION_SECRET,
+        secret: nconf.get('SESSION_SECRET'),
         resave: false,
         saveUninitialized: false
     }))
@@ -67,10 +72,10 @@ express()
     .get('/', async (request, response) => {
         if (request.user) {
             response.locals.user = await users.getAsync(
-                request.user.id, 
+                request.user.id,
                 'google');
         }
-        
+
         response.render('post');
     })
     .post('/api/message', async (request, response) => {
@@ -104,4 +109,4 @@ express()
             response.redirect('/');
         });
     })
-    .listen(process.env.PORT || 3000);
+    .listen(nconf.get('PORT') || 3000);
