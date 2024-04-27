@@ -44,4 +44,50 @@ export class SpottedClient {
 
         return response.ok;
     }
+
+    /**
+     * Asynchronously adds a like to a message.
+     * 
+     * @param {*} id the identifier of the message to like.
+     * @returns {Promise} A promise representing the asynchronous like
+     *                    operation.
+     */
+    async likeMessageAsync(id) {
+        try {
+            const response = await fetch(`/api/like`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id })
+            });
+
+            return await response.json();
+        } catch {
+            window.location.href = '/auth/google';
+        }
+    }
+
+    /**
+     * Asynchronously removes a like from a message.
+     * 
+     * @param {*} id the identifier of the message to unlike.
+     * @returns {Promise} A promise representing the asynchronous unlike
+     *                    operation.
+     */
+    async unlikeMessageAsync() {
+        try {
+            const response = await fetch(`/api/unlike`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id })
+            });
+
+            return await response.json();
+        } catch {
+            window.location.href = '/auth/google';
+        }
+    }
 }

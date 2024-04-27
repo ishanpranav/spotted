@@ -20,7 +20,7 @@ export class UserRepository {
     }
 
     /**
-     * Asynchronously gets all messages available at the given location.
+     * Asynchronously gets all the user with the given account identifier.
      * 
      * @param {*} accountId the account identifier.
      * @param {*} type      the account type. Only `'google'` is supported.

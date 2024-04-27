@@ -89,9 +89,42 @@ express()
             longitude: request.query.longitude
         };
 
+        let user;
+
+        if (request.user) {
+            user = await users.getAsync(request.user.id, 'google');
+        }
+
         response.json(await messages.getAsync(
+            user,
             coordinates,
             request.query.accuracy));
+    })
+    .post('/api/like', async (request, response) => {
+        if (!request.user) {
+            response.sendStatus(403);
+
+            return;
+        }
+
+        const user = await users.getAsync(request.user.id, 'google');
+
+        await messages.likeAsync(user, request.body.id);
+
+        response.sendStatus(200);
+    })
+    .post('/api/unlike', async (request, response) => {
+        if (!request.user) {
+            response.sendStatus(403);
+
+            return;
+        }
+
+        const user = await users.getAsync(request.user.id, 'google');
+
+        await messages.unlikeAsync(user, request.body.id);
+
+        response.sendStatus(200);
     })
     .get('/auth/google', passport.authenticate('google', {
         scope: ['profile', 'email']

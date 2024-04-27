@@ -19,5 +19,11 @@ export const Message = model('Message', new Schema({
         type: Date,
         default: Date.now
     },
-    type: String
+    type: String,
+    likes: [
+        {
+            type: Types.ObjectId,
+            ref: 'User'
+        }
+    ]
 }));

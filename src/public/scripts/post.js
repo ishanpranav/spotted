@@ -158,6 +158,8 @@ function addMessage(message) {
     const strong = document.createElement('strong');
     const small = document.createElement('small');
     const time = document.createElement('time');
+    const likeButton = document.createElement('button');
+    const likeIcon = document.createElement('i');
 
     toast.classList.add('toast');
     toastHeader.classList.add('toast-header');
@@ -165,6 +167,14 @@ function addMessage(message) {
     profileImage.classList.add('rounded');
     profileImage.classList.add('me-2');
     strong.classList.add('me-auto');
+    likeButton.classList.add('btn');
+    likeIcon.classList.add('bi');
+
+    if (message.liked) {
+        likeIcon.classList.add('bi-heart-fill');
+    } else {
+        likeIcon.classList.add('bi-heart');
+    }
 
     if (message.user) {
         profileImage.src = message.user.imageURL;
@@ -213,16 +223,41 @@ function addMessage(message) {
             break;
     }
 
+    const id = message.id;
+
     toastHeader.appendChild(profileImage);
     toastHeader.appendChild(strong);
     small.appendChild(time);
     toastHeader.appendChild(small);
+    likeButton.appendChild(likeIcon);
+    toastHeader.appendChild(likeButton);
     toast.appendChild(toastHeader);
     toast.appendChild(toastBody);
     getToastContainer().appendChild(toast);
+    likeButton.addEventListener(
+        'click',
+        async () => await onLikeButtonClick(likeIcon, id));
+    toast.addEventListener(
+        'dblclick',
+        async () => await onLikeButtonClick(likeIcon, id));
+
     Toast
         .getOrCreateInstance(toast, {
             autohide: false
         })
         .show();
+}
+
+async function onLikeButtonClick(icon, id) {
+    if (icon.classList.contains('bi-heart')) {
+        await client.likeMessageAsync(id);
+
+        icon.classList.remove('bi-heart');
+        icon.classList.add('bi-heart-fill');
+    } else {
+        await client.unlikeMessageAsync(id);
+
+        icon.classList.remove('bi-heart-fill');
+        icon.classList.add('bi-heart-fill');
+    }
 }

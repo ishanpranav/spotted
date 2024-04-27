@@ -27,14 +27,16 @@ export class MessageRepository {
     }
 
     /**
-     * Asynchronously gets all messages available at the given location.
+     * Asynchronously gets all messages available to the given user at the
+     * given location.
      * 
+     * @param {*} user        the user.
      * @param {*} coordinates the coordinates of the location.
      * @param {*} accuracy    the accuracy of the specified coordinates.
      * @return {Promise} a promise whose result contains the collection of
      *                   messages available at the given location.
      */
-    async getAsync(coordinates, accuracy) {
+    async getAsync(user, coordinates, accuracy) {
         const messages = await Message
             .find()
             .populate('user')
@@ -56,6 +58,7 @@ export class MessageRepository {
             }
 
             const result = {
+                id: message._id,
                 content: message.content,
                 type: message.type,
                 distance: distance,
@@ -69,9 +72,36 @@ export class MessageRepository {
                 };
             }
 
+            if (user && message.likes.indexOf(user._id)) {
+                result.liked = true;
+            }
+
             results.push(result);
         }
 
         return results;
+    }
+
+    /**
+     * Asynchronously adds a like to a message.
+     * 
+     * @param {*} user the user.
+     * @param {*} id   the message identifier.
+     * @return {Promise} A promise representing the asynchronous like operation.
+     */
+    async likeAsync(user, id) {
+        console.log("user ", user, "likes message ", id);
+    }
+
+    /**
+     * Asynchronously removes a like from a message.
+     * 
+     * @param {*} user the user.
+     * @param {*} id   the message identifier.
+     * @return {Promise} A promise representing the asynchronous unlike
+     *                   operation.
+     */
+    async unlikeAsync(user, id) {
+        console.log("user ", user, "unlikes message ", id);
     }
 }
