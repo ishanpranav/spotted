@@ -13,10 +13,12 @@ export class MessageRepository {
     /**
      * Asynchronously adds a message.
      * 
+     * @param {*} user    the user.
      * @param {*} message the message to add.
      * @returns {Promise} A promise representing the asynchronous add operation.
      */
-    async addAsync(message) {
+    async addAsync(user, message) {
+        message.user = user._id;
         message.content = message.content.trim();
 
         if (!message.content.length) {

@@ -77,7 +77,13 @@ express()
         response.render('post');
     })
     .post('/api/message', async (request, response) => {
-        response.json(await messages.addAsync(request.body));
+        let user;
+        
+        if (request.user) {
+            user = await users.getAsync(request.user.id, 'google');
+        }
+
+        response.json(await messages.addAsync(user, request.body));
     })
     .get('/api/messages', async (request, response) => {
         const coordinates = {
