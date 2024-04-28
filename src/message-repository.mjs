@@ -67,7 +67,6 @@ export class MessageRepository {
             .populate('user')
             .sort([['posted', -1]])
             .exec();
-
         const theta = Math.max(50, accuracy);
         const results = [];
 
@@ -79,7 +78,7 @@ export class MessageRepository {
             console.log(distance);
     
             if (distance > theta) {
-                return null;
+                continue;
             }
     
             results.push(this.getCleanMessage(user, distance, message));

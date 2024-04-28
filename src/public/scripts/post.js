@@ -58,13 +58,14 @@ async function onDOMContentLoaded() {
             position.coords,
             position.coords.accuracy);
 
+        console.log(messages);
+        console.log(position.coords);
+
         getToastContainer().innerHTML = '';
 
         for (const message of messages) {
             addMessage(message);
         }
-
-        console.log(position.coords);
     });
 }
 
